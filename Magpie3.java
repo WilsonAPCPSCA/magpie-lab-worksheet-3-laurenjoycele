@@ -1,25 +1,11 @@
-/**
- * A program to carry on conversations with a human user.
- * This version: 
- * <ul><li>
- *    Uses advanced search for keywords 
- * </li></ul> 
- *    
- * @author Laurie White
- * @version April 2012
- */
-public class Magpie3
-{
-	/**
-	 * Get a default greeting
-	 * 
-	 * @return a greeting
-	 */
+
+public class Magpie3 {
+
+	
 	public String getGreeting()
 	{
 		return "Hello, let's talk.";
 	}
-
 	/**
 	 * Gives a response to a user statement
 	 * 
@@ -27,14 +13,12 @@ public class Magpie3
 	 *            the user statement
 	 * @return a response based on the rules given
 	 */
+	
 	public String getResponse(String statement)
 	{
 		String response = "";
-		if (statement.length() == 0)
-		{
-			response = "Say something, please.";
-		}
-		else if (findKeyword(statement, "no") >= 0)
+		
+		if (findKeyword(statement, "no") >= 0)
 		{
 			response = "Why so negative?";
 		}
@@ -45,13 +29,68 @@ public class Magpie3
 		{
 			response = "Tell me more about your family.";
 		}
+		else if (findKeyword(statement, "dog") >=0
+				|| findKeyword(statement, "cat") >=0)
+		{
+			response = "Tell me more about your pets";
+		}
+		else if (findKeyword(statement, "Bushyeager")>=0)
+		{
+			response = "She sounds like a cool teacher.";
+		}
+		else if ((statement.trim()).length() ==0)
+		{
+			response = "Say something, please.";
+		}
+		else if (findKeyword(statement,"sad")>=0)
+		{
+			response = "Why are you sad?";
+		}
+		else if (findKeyword(statement, "you")>=0)
+		{
+			response = "Why are you judging me?";
+		}
+		else if (findKeyword(statement, "today")>=0)
+		{
+			response = "Do you have any other plans?";
+		}
 		else
 		{
 			response = getRandomResponse();
 		}
 		return response;
 	}
+	 
+	/**
+	 * Pick a default response to use if nothing else fits.
+	 * @return a non-committal string
+	 */
+	private String getRandomResponse()
+	{
+		final int NUMBER_OF_RESPONSES = 4;
+		double r = Math.random();
+		int whichResponse = (int)(r * NUMBER_OF_RESPONSES);
+		String response = "";
+		
+		if (whichResponse == 0)
+		{
+			response = "Interesting, tell me more.";
+		}
+		else if (whichResponse == 1)
+		{
+			response = "Hmmm.";
+		}
+		else if (whichResponse == 2)
+		{
+			response = "Do you really think so?";
+		}
+		else if (whichResponse == 3)
+		{
+			response = "You don't say.";
+		}
 
+		return response;
+	}
 	/**
 	 * Search for one word in phrase. The search is not case
 	 * sensitive. This method will check that the given goal
@@ -133,38 +172,5 @@ public class Magpie3
 	private int findKeyword(String statement, String goal)
 	{
 		return findKeyword(statement, goal, 0);
-	}
-
-	/**
-	 * Pick a default response to use if nothing else fits.
-	 * 
-	 * @return a non-committal string
-	 */
-	private String getRandomResponse()
-	{
-		final int NUMBER_OF_RESPONSES = 4;
-		double r = Math.random();
-		int whichResponse = (int) (r * NUMBER_OF_RESPONSES);
-		String response = "";
-
-		if (whichResponse == 0)
-		{
-			response = "Interesting, tell me more.";
-		}
-		else if (whichResponse == 1)
-		{
-			response = "Hmmm.";
-		}
-		else if (whichResponse == 2)
-		{
-			response = "Do you really think so?";
-		}
-		else if (whichResponse == 3)
-		{
-			response = "You don't say.";
-		}
-
-		return response;
-	}
-
+}
 }
